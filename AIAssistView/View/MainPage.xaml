@@ -1,0 +1,44 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             xmlns:syncfusion="clr-namespace:Syncfusion.Maui.AIAssistView;assembly=Syncfusion.Maui.AIAssistView"
+             xmlns:local="clr-namespace:AIAssistView"
+             x:Class="AIAssistView.MainPage">
+
+    <ContentPage.BindingContext>
+        <local:GettingStartedViewModel x:Name="viewModel"></local:GettingStartedViewModel>
+    </ContentPage.BindingContext>
+
+    <syncfusion:SfAIAssistView x:Name="sfAIAssistView" 
+                               AssistItems="{Binding AssistItems}"
+                               RequestCommand="{Binding AssistViewRequestCommand}"
+                               StopRespondingCommand="{Binding StopRespondingCommand}"
+                               EmptyView="No Items">
+    <syncfusion:SfAIAssistView.EmptyViewTemplate>
+        <DataTemplate>
+            <Grid RowDefinitions="45,30" RowSpacing="10" HorizontalOptions="Center" VerticalOptions="Center">
+                <Border Background="#6C4EC2" Stroke="#CAC4D0" HorizontalOptions="Center" >
+                    <Border.StrokeShape>
+                        <RoundRectangle CornerRadius="12"/>
+                    </Border.StrokeShape>
+                    <Label Text="&#xe7e1;" 
+                           FontSize="24" 
+                           HorizontalTextAlignment="Center" 
+                           VerticalTextAlignment="Center" 
+                           FontFamily="MauiSampleFontIcon" 
+                           TextColor="White" 
+                           HeightRequest="45" 
+                           WidthRequest="45" 
+                           HorizontalOptions="Center" />
+                </Border>
+                <Label Text="Hi, How can I help you!" 
+                       HorizontalOptions="Center" 
+                       Grid.Row="1" 
+                       FontFamily="Roboto-Regular" 
+                       FontSize="20"/>
+            </Grid>
+        </DataTemplate>
+    </syncfusion:SfAIAssistView.EmptyViewTemplate>
+</syncfusion:SfAIAssistView>
+
+</ContentPage>
