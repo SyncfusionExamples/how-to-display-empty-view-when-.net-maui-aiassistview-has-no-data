@@ -17,6 +17,7 @@ namespace AIAssistView
         private ObservableCollection<IAssistItem> assistItems;
         private bool cancelResponse;
         #endregion
+        private AzureAIService azureAIService;
 
         #region Command
         public ICommand AssistViewRequestCommand { get; set; }
@@ -26,6 +27,7 @@ namespace AIAssistView
         #region Constructor
         public GettingStartedViewModel()
         {
+            azureAIService = new AzureAIService();
             this.assistItems = new ObservableCollection<IAssistItem>();
             this.AssistViewRequestCommand = new Command<object>(ExecuteRequestCommand);
             this.StopRespondingCommand = new Command(ExecuteStopResponding);
@@ -81,7 +83,8 @@ namespace AIAssistView
             AssistItem request = (AssistItem)inputQuery;
             if (request != null)
             {
-                var response = GetSolutionToPrompt(request.Text);
+                var userAIPrompt = GetSolutionToPrompt(request.Text);
+                var response = await azureAIService!.GetResultsFromAI(request.Text, userAIPrompt).ConfigureAwait(true);
                 response = response.Replace("\n", "<br>");
                 await Task.Delay(1000).ConfigureAwait(true);
                 if (!CancelResponse)
